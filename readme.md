@@ -9,7 +9,7 @@ Installation
 Instructions
 ------------
 
-First run rss.init(). Subsequent updates should be made to the feed by running rss.update().
+Just run rss.py whenever you want the feed to update (via cron or whatever).
 
 Requirements
 ------------
