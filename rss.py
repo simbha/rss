@@ -10,16 +10,18 @@ from bs4 import BeautifulSoup
 
 RSS_DIR = "./"
 RSS_FILE = "WritingExcusesRSS.xml"
+RSS_IMAGE = "http://www.writingexcuses.com/wp-content/uploads/2014/04/"       \
+            "WX-banner.jpg"
 RSS_PATH = os.path.join(RSS_DIR, RSS_FILE)
 RSS_LINK = "http://savage.startleddisbelief.com/rss/" + RSS_FILE
-RSS_TITLE = "Writing Excuses (Gem's Feed)"
+RSS_TITLE = "Writing Excuses Archive"
 RSS_WEBSITE = "http://www.writingescuses.com/"
 RSS_DESCRIPTION = "Fifteen minutes long, because you're in a hurry, and we're"\
                   " not that smart."
 RSS_TYPE = "audio/mpeg"
 
 # Include all ways of representing nonbreaking space characters.
-DATE_FORMAT = r"\d+( |&nbsp;|\xc2?\xa0)\w{3}( |&nbsp;|\xc2?\xa0)\d+"
+DATE_FORMAT = r"^\d+( |&nbsp;|\xc2?\xa0)\w+( |&nbsp;|\xc2?\xa0)\d+"
 TIME_FORMAT = r"\d+:\d+"
 
 RETRIES = 10
@@ -29,14 +31,10 @@ TIMEOUT = 5     # Timeout value for requests, in seconds.
 def init():
     items = find_items()
     rss = create_rss(
-        title=RSS_TITLE, website=RSS_WEBSITE,
+        title=RSS_TITLE, website=RSS_WEBSITE, image=RSS_IMAGE,
         description=RSS_DESCRIPTION, items=items
     )
     rss.write_xml(open(RSS_PATH, "w"))
-
-
-def update():
-    pass
 
 
 def find_items():
@@ -63,6 +61,7 @@ def find_items():
                     d = date_tag.string.replace(u"\xa0", " ")
                     item["date"] = dateutil.parser.parse(d)
                 else:
+                    print "No date tag found: {}".format(e)
                     item["date"] = None
 
                 time_tag = e.find("li", text=re.compile(TIME_FORMAT))
@@ -82,13 +81,14 @@ def find_items():
     return items
 
 
-def create_rss(title, website, description, items):
+def create_rss(title, website, description, items, image):
     print "Creating RSS file..."
 
     rss = PyRSS2Gen.RSS2(
         title=title,
         link=website,
         description=description,
+        image=PyRSS2Gen.Image(url=image, title=title, link=website),
         lastBuildDate=datetime.datetime.now(),
 
         items = [PyRSS2Gen.RSSItem(
@@ -123,8 +123,9 @@ def page_generator():
 
 
 if __name__ == "__main__":
+    init()
 #    if os.path.isfile(RSS_PATH):
 #        update()
 #    else:
-        init()
+#        init()
 
