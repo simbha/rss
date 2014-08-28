@@ -9,7 +9,7 @@ Installation
 Instructions
 ------------
 
-Just run rss.py whenever you want the feed to update (via cron or whatever).
+Just run `rss.py` whenever you want the feed to update (via cron or whatever), ensure that the target RSS file is network-accessible, then point your feed reader to it.
 
 Requirements
 ------------
@@ -24,7 +24,7 @@ Bugs and Feature Requests
 Feature Requests
 ----------------
 
-Does not yet support updating the feed. (It needs to be regenerated from scratch each time.)
+* Does not yet support updating the feed. (It needs to be regenerated from scratch each time.)
 
 Known Bugs
 ----------
@@ -34,8 +34,6 @@ None.
 License Information
 ===================
 
-Written by Gem Newman.
-http://www.startleddisbelief.com
+Written by Gem Newman. [GitHub](https://github.com/spurll/) | [Blog](http://www.startleddisbelief.com) | [Twitter](https://twitter.com/spurll)
 
-This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
-
+This work is licensed under Creative Commons [BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/).
