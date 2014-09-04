@@ -8,7 +8,7 @@ import requests, re, datetime, os.path, dateutil.parser, PyRSS2Gen
 from bs4 import BeautifulSoup
 
 
-RSS_DIR = "/var/www/rss"
+RSS_DIR = os.path.dirname(os.path.realpath(__file__))
 RSS_FILE = "WritingExcusesRSS.xml"
 RSS_IMAGE = "http://www.writingexcuses.com/wp-content/uploads/2014/04/"       \
             "WX-banner.jpg"
