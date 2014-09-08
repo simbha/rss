@@ -8,7 +8,8 @@ import requests, re, datetime, os.path, dateutil.parser, PyRSS2Gen
 from bs4 import BeautifulSoup
 
 
-RSS_DIR = os.path.dirname(os.path.realpath(__file__))
+#RSS_DIR = os.path.dirname(os.path.realpath(__file__))
+RSS_DIR = "/var/www/"
 RSS_FILE = "WritingExcusesRSS.xml"
 RSS_IMAGE = "http://www.writingexcuses.com/wp-content/uploads/2014/04/"       \
             "WX-banner.jpg"
@@ -28,7 +29,11 @@ RETRIES = 10
 TIMEOUT = 5     # Timeout value for requests, in seconds.
 
 
-def init():
+def main():
+#    if os.path.isfile(RSS_PATH):
+#        update()
+#    else:
+
     items = find_items()
     rss = create_rss(
         title=RSS_TITLE, website=RSS_WEBSITE, image=RSS_IMAGE,
@@ -112,7 +117,7 @@ def page_generator():
         print "Unable to determine current season. Assuming 20. Why not?"
         current_season = 20
     else:
-        current_season = int(m[0])
+        current_season = max([int(s) for s in m])
 
     for i in range(1, current_season + 1):
         if i < 8:
@@ -123,9 +128,5 @@ def page_generator():
 
 
 if __name__ == "__main__":
-    init()
-#    if os.path.isfile(RSS_PATH):
-#        update()
-#    else:
-#        init()
+    main()
 
